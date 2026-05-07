@@ -1,5 +1,18 @@
 /* ===== APP.CSS — THE SIMNA ADVERTISER ===== */
 
+/* ===== FIX MOBILE OVERFLOW ===== */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+}
+
+* {
+  max-width: 100%;
+}
+
+.hero { overflow: hidden; }
+.machinery-section { overflow: hidden; }
 /* ===== DESIGN TOKENS ===== */
 :root {
   --forest:    #0a3b2a;
