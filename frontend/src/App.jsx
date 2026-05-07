@@ -284,7 +284,40 @@ const App = () => {
     { value: '15+', label: 'Advanced Machines' },
     { value: '1995', label: 'Established' },
   ];
+useEffect(() => {
+    const animateCount = (el, target, duration = 2000) => {
+      const isPlus = target.toString().includes('+');
+      const num = parseInt(target);
+      let start = 0;
+      const step = Math.ceil(num / (duration / 16));
+      const timer = setInterval(() => {
+        start += step;
+        if (start >= num) {
+          start = num;
+          clearInterval(timer);
+        }
+        el.textContent = start + (isPlus ? '+' : '');
+      }, 16);
+    };
 
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const el = e.target;
+          const target = el.getAttribute('data-count');
+          animateCount(el, target);
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-value').forEach((el) => {
+      el.setAttribute('data-count', el.textContent);
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
   return (
     <>
       {/* ===== NAVBAR ===== */}
